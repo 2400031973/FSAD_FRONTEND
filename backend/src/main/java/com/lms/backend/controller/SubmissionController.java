@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/submissions")
-@CrossOrigin("http://localhost:3000")
 public class SubmissionController {
 
     @Autowired
@@ -38,25 +37,35 @@ public class SubmissionController {
 
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<Submission>> getSubmissionsByStudent(@PathVariable Long studentId) {
+        if (studentId == null || studentId <= 0) {
+            return ResponseEntity.badRequest().body(List.of());
+        }
         List<Submission> submissions = submissionRepository.findByStudentId(studentId);
         // Enrich with assignment titles
         for (Submission sub : submissions) {
-            assignmentRepository.findById(sub.getAssignmentId()).ifPresent(a -> {
-                sub.setAssignmentTitle(a.getTitle());
-                sub.setMaxMarks(a.getMaxMarks());
-            });
+            if (sub.getAssignmentId() != null) {
+                assignmentRepository.findById(sub.getAssignmentId()).ifPresent(a -> {
+                    sub.setAssignmentTitle(a.getTitle());
+                    sub.setMaxMarks(a.getMaxMarks());
+                });
+            }
         }
         return ResponseEntity.ok(submissions);
     }
 
     @GetMapping("/assignment/{assignmentId}")
     public ResponseEntity<List<Submission>> getSubmissionsByAssignment(@PathVariable Long assignmentId) {
+        if (assignmentId == null || assignmentId <= 0) {
+            return ResponseEntity.badRequest().body(List.of());
+        }
         List<Submission> submissions = submissionRepository.findByAssignmentId(assignmentId);
         // Enrich with student names
         for (Submission sub : submissions) {
-            userRepository.findById(sub.getStudentId()).ifPresent(u -> {
-                sub.setStudentName(u.getName());
-            });
+            if (sub.getStudentId() != null && sub.getAssignmentId() != null) {
+                userRepository.findById(sub.getStudentId()).ifPresent(u -> {
+                    sub.setStudentName(u.getName());
+                });
+            }
         }
         return ResponseEntity.ok(submissions);
     }

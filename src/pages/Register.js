@@ -2,21 +2,28 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('student');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
-      await axios.post('https://backend-fsad-production.up.railway.app/api/auth/register', {
-        name, email, password, role
+      await axios.post(`${API_BASE_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+        role,
       });
       alert('Registration successful! Please login.');
       navigate('/login');
@@ -26,6 +33,8 @@ const Register = () => {
       } else {
         setError('Error during registration');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,8 +81,12 @@ const Register = () => {
               <option value="teacher">Teacher</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Register
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={!name || !email || !password || loading}
+          >
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
         <div className="auth-link">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from "axios";
+import API_BASE_URL from '../config/apiConfig';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // ✅ CAPTCHA GENERATION
   const generateCaptcha = () => {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
     let result = '';
@@ -27,7 +27,6 @@ const Login = () => {
     generateCaptcha();
   }, []);
 
-  // ✅ CONNECTED LOGIN TO BACKEND
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -39,7 +38,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("https://backend-fsad-production.up.railway.app/api/auth/login", {
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password
       });

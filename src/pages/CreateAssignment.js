@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";  
+import axios from "axios";
+import API_BASE_URL from '../config/apiConfig';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 
@@ -12,28 +13,31 @@ const CreateAssignment = () => {
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [maxMarks, setMaxMarks] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // ✅ UPDATED FUNCTION
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
-      const res = await axios.post("https://backend-fsad-production.up.railway.app/api/assignments", {
+      const res = await axios.post(`${API_BASE_URL}/api/assignments`, {
         title: title,
         description: description,
-        deadline: dueDate,   // backend expects deadline
-        createdBy: 1         // you can change later (user.id)
+        deadline: dueDate,
+        createdBy: user.id || 1,
+        maxMarks: parseInt(maxMarks) || 0
       });
 
       console.log(res.data);
-
       alert("Assignment created successfully!");
-
       navigate('/teacher/dashboard');
-
     } catch (error) {
       console.error(error);
-      alert("Error creating assignment");
+      setError(error.response?.data || "Error creating assignment");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,9 +49,8 @@ const CreateAssignment = () => {
         <div className="content">
           <div className="form-container">
             <h2>New Assignment</h2>
-
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
-
               <div className="form-group">
                 <label>Assignment Title</label>
                 <input
@@ -91,10 +94,9 @@ const CreateAssignment = () => {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">
-                Create Assignment
+              <button type="submit" className="btn btn-primary" disabled={loading}>
+                {loading ? 'Creating...' : 'Create Assignment'}
               </button>
-
             </form>
           </div>
         </div>

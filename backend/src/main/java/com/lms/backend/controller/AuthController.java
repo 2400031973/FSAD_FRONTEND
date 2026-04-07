@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin("http://localhost:3000")
 public class AuthController {
 
     @Autowired

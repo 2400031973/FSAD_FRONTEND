@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/apiConfig';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 
@@ -9,17 +10,19 @@ const Profile = () => {
   const [name, setName] = useState(user.name || '');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage('');
     try {
       const payload = { id: user.id };
       if (name) payload.name = name;
       if (password) payload.password = password;
 
-      const res = await axios.put(`https://backend-fsad-production.up.railway.app/api/users/${user.id}`, payload);
+      const res = await axios.put(`${API_BASE_URL}/api/users/${user.id}`, payload);
       
-      // Update local storage user data
       const updatedUser = { ...user, name: res.data.name };
       if (res.data.password) {
         updatedUser.password = res.data.password;
@@ -27,10 +30,12 @@ const Profile = () => {
       localStorage.setItem('user', JSON.stringify(updatedUser));
       
       setMessage('Profile updated successfully!');
-      setPassword(''); // clear password field
+      setPassword('');
     } catch (error) {
       console.error(error);
       setMessage('Error updating profile');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,7 +44,6 @@ const Profile = () => {
       <Sidebar role={user.role} userName={name || user.name} />
       <div className="main-content">
         <Header title="My Profile" />
-
         <div className="content">
           <div className="form-container">
             <h2>Edit Profile</h2>
@@ -75,8 +79,8 @@ const Profile = () => {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">
-                Update Profile
+              <button type="submit" className="btn btn-primary" disabled={loading}>
+                {loading ? 'Updating...' : 'Update Profile'}
               </button>
             </form>
           </div>
