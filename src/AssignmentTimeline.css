@@ -1,0 +1,193 @@
+.timeline {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+}
+
+.timeline-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 24px;
+}
+
+.timeline-container {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -33px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px;
+}
+
+.timeline-item.urgent .timeline-marker {
+  background: #f56565;
+  box-shadow: 0 0 0 2px #f56565;
+}
+
+.timeline-item.due-soon .timeline-marker {
+  background: #f39c12;
+  box-shadow: 0 0 0 2px #f39c12;
+}
+
+.timeline-item.upcoming .timeline-marker {
+  background: #f6e05e;
+  box-shadow: 0 0 0 2px #f6e05e;
+}
+
+.timeline-item.plenty-time .timeline-marker {
+  background: #48bb78;
+  box-shadow: 0 0 0 2px #48bb78;
+}
+
+.timeline-content {
+  background: #f7fafc;
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 4px solid;
+}
+
+.timeline-item.urgent .timeline-content {
+  border-left-color: #f56565;
+  background: #fff5f5;
+}
+
+.timeline-item.due-soon .timeline-content {
+  border-left-color: #f39c12;
+  background: #fef5e7;
+}
+
+.timeline-item.upcoming .timeline-content {
+  border-left-color: #f6e05e;
+  background: #fefcf0;
+}
+
+.timeline-item.plenty-time .timeline-content {
+  border-left-color: #48bb78;
+  background: #f0fff4;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.timeline-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-day {
+  font-size: 12px;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+}
+
+.date-num {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.timeline-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.timeline-badge.urgent {
+  background: #f56565;
+  color: white;
+}
+
+.timeline-badge.due-soon {
+  background: #f39c12;
+  color: white;
+}
+
+.timeline-badge.upcoming {
+  background: #f6e05e;
+  color: #744210;
+}
+
+.timeline-badge.plenty-time {
+  background: #48bb78;
+  color: white;
+}
+
+.timeline-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.timeline-content p {
+  font-size: 13px;
+  color: #718096;
+  margin-bottom: 12px;
+}
+
+.btn-submit {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-submit:hover {
+  background: #5568d3;
+}
+
+.btn-submit.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(245, 101, 101, 0);
+  }
+}
