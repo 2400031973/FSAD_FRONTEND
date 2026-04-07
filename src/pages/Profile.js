@@ -17,7 +17,7 @@ const Profile = () => {
       if (name) payload.name = name;
       if (password) payload.password = password;
 
-      const res = await axios.put(`http://localhost:8080/api/users/${user.id}`, payload);
+      const res = await axios.put(`https://backend-fsad-production.up.railway.app/api/users/${user.id}`, payload);
       
       // Update local storage user data
       const updatedUser = { ...user, name: res.data.name };

@@ -25,14 +25,14 @@ const SubmitAssignment = () => {
     try {
       if (submission) {
         // Edit mode
-        await axios.put(`http://localhost:8080/api/submissions/${submission.id}`, {
+        await axios.put(`https://backend-fsad-production.up.railway.app/api/submissions/${submission.id}`, {
           fileUrl: file ? file.name : "no-file",
           feedback: comments
         });
         alert("Assignment updated successfully!");
       } else {
         // Create mode
-        await axios.post("http://localhost:8080/api/submissions", {
+        await axios.post("https://backend-fsad-production.up.railway.app/api/submissions", {
           assignmentId: assignment?.id,
           studentId: user.id,
           fileUrl: file ? file.name : "no-file",

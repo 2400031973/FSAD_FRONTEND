@@ -14,7 +14,7 @@ const GradeAssignment = () => {
   const fetchSubmissions = async () => {
     if (!assignment?.id) return;
     try {
-      const res = await axios.get(`http://localhost:8080/api/submissions/assignment/${assignment.id}`);
+      const res = await axios.get(`https://backend-fsad-production.up.railway.app/api/submissions/assignment/${assignment.id}`);
       setSubmissions(res.data);
     } catch (err) {
       console.error(err);
@@ -38,7 +38,7 @@ const GradeAssignment = () => {
   const handleSubmitGrade = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/api/submissions/${selectedSubmission.id}/grade`, {
+      await axios.put(`https://backend-fsad-production.up.railway.app/api/submissions/${selectedSubmission.id}/grade`, {
         marks,
         feedback
       });

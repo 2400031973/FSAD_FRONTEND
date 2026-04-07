@@ -22,8 +22,8 @@ const StudentDashboard = () => {
     const fetchData = async () => {
       try {
         const [assignRes, subRes] = await Promise.all([
-          axios.get("http://localhost:8080/api/assignments"),
-          axios.get(`http://localhost:8080/api/submissions/student/${user.id}`)
+          axios.get("https://backend-fsad-production.up.railway.app/api/assignments"),
+          axios.get(`https://backend-fsad-production.up.railway.app/api/submissions/student/${user.id}`)
         ]);
         
         const augmentedAssignments = assignRes.data.map(assignment => {

@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
+      const res = await axios.post("https://backend-fsad-production.up.railway.app/api/auth/login", {
         email,
         password
       });

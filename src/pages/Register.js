@@ -15,7 +15,7 @@ const Register = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:8080/api/auth/register', {
+      await axios.post('https://backend-fsad-production.up.railway.app/api/auth/register', {
         name, email, password, role
       });
       alert('Registration successful! Please login.');

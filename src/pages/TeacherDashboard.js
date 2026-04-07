@@ -18,7 +18,7 @@ const TeacherDashboard = () => {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/assignments");
+        const res = await axios.get("https://backend-fsad-production.up.railway.app/api/assignments");
         setAssignments(res.data);
       } catch (error) {
         console.error(error);

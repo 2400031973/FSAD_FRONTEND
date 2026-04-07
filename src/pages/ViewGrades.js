@@ -11,7 +11,7 @@ const ViewGrades = () => {
   useEffect(() => {
     const fetchGrades = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/submissions/student/${user.id}`);
+        const res = await axios.get(`https://backend-fsad-production.up.railway.app/api/submissions/student/${user.id}`);
         setGrades(res.data);
       } catch (err) {
         console.error("Error fetching grades", err);

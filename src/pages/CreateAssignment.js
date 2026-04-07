@@ -18,7 +18,7 @@ const CreateAssignment = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8080/api/assignments", {
+      const res = await axios.post("https://backend-fsad-production.up.railway.app/api/assignments", {
         title: title,
         description: description,
         deadline: dueDate,   // backend expects deadline
